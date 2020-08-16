@@ -8,6 +8,36 @@ module.exports = {
       })
     })
   },
+  //================================================
+
+  // [Pagination Limit-offset-Join]
+  getProduct: (limit, offset, search, sort) => {
+    return new Promise((resolve, reject) => {
+      connection.query("SELECT products.product_id, products.product_name, products.product_price, category.category_name, products.product_created_at, products.product_updated_at, products.product_status FROM products INNER JOIN category ON products.category_id = category.category_id WHERE products.product_name LIKE ? ORDER BY ${sort} LIMIT ? OFFSET ? ", [`%${search}%`, limit, offset], (error, result) => {
+        !error ? resolve(result) : reject(new Error(error))
+      })
+    })
+  },
+  getProductCount: () => {
+    return new Promise((resolve, reject) => {
+      connection.query("SELECT COUNT(*) as total FROM products", (error, result) => {
+        !error ? resolve(result[0].total) : reject(new Error(error))
+      })
+    })
+  },
+
+  //===============================================
+
+
+  //[Pengurutan data  BY  1.NAME 2.CATEGORY 3.PRICE 4.DATE]
+  // [PRICE]
+  getByproduct_Name: () => {
+    return new Promise((resolve, reject) => {
+      connection.query(`SELECT * FROM    products    ORDER BY    product_price    ASC`, (error, result) => {
+        !error ? resolve(result) : reject(new Error(error))
+      })
+    })
+  },
   getProductById: (id) => {
     return new Promise((resolve, reject) => {
       connection.query("SELECT * FROM products WHERE product_id = ?", id, (error, result) => {
