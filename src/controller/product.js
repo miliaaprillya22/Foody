@@ -1,7 +1,6 @@
-const { getByproduct_Name, getProduct, getProductCount, getProductById, postProduct, patchProduct, deleteProduct } = require('../model/product')
+const { getAllProduct, getByproduct_Name, getProduct, getProductCount, getProductById, postProduct, patchProduct, deleteProduct } = require('../model/product')
 const qs = require('querystring')
 const helper = require('../helper/index.js');
-const { search } = require('../routes/product');
 
 const getPrevLink = (page, currentQuery) => {
   if (page > 1) {
@@ -28,26 +27,14 @@ const getNextLink = (page, totalPage, currentQuery) => {
 }
 
 module.exports = {
-  getAllProduct: async (request, response) => {
+  getProduct: async (request, response) => {
     let { page, limit, search, sort } = request.query
-    // page = parseInt(page)
-    // limit = parseInt(limit)
-    // search = ''
-    // sort = 'product_id'
-    page === undefined ? page = 1 : page = parseInt(page)
-    limit === undefined ? limit = 3 : limit = parseInt(limit)
-    let totalData = 0
-    if (search === undefined) {
-      search = ''
-      totalData = await getProduct()
-    } else {
-      totalData = await getProduct(search)
-    }
-    if (sort === undefined) {
-      sort = 'product_id'
+    page = parseInt(page)
+    limit = parseInt(limit)
+    search = ''
+    sort = 'product_id'
 
-    }
-    //  let totalData = await getProductCount();
+    let totalData = await getProductCount(search);
     let totalPage = Math.ceil(totalData / limit)
     let offset = page * limit - limit
     let prevLink = getPrevLink(page, request.query)

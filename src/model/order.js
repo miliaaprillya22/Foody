@@ -1,27 +1,27 @@
 const connection = require('../config/mysql')
-
 module.exports = {
-   getHistory: () => {
+
+   getOrder: () => {
       return new Promise((resolve, reject) => {
-         connection.query(`SELECT * FROM history`, (error, result) => {
+         connection.query(`SELECT * FROM order`, (error, result) => {
             !error ? resolve(result) : reject(new Error(error))
          })
       })
    },
-   getHistoryId: (id) => {
+   getByOrder_id: (id) => {
       return new Promise((resolve, reject) => {
-         connection.query("SELECT * FROM history WHERE history_id = ?", id, (error, result) => {
+         connection.query("SELECT * FROM order WHERE order_id = ?", id, (error, result) => {
             !error ? resolve(result) : reject(new Error(error))
          })
       })
    },
-   postHistory: (setData) => {
+   postOrder: (setData) => {
       return new Promise((resolve, reject) => {
-         connection.query("INSERT INTO history SET ? ", setData,
+         connection.query("INSERT INTO order SET ? ", setData,
             (error, result) => {
                if (!error) {
                   const newResult = {
-                     order_id: result.insertId,
+                     category_id: result.insertId,
                      ...setData
                   };
                   resolve(newResult);
@@ -32,10 +32,25 @@ module.exports = {
          )
       })
    },
-
-   deleteHistory: (id) => {
+   patchOrder: (setData, id) => {
       return new Promise((resolve, reject) => {
-         connection.query("DELETE FROM history WHERE history_id = ?", id,
+         connection.query("UPDATE order SET ? WHERE order_id = ?", [setData, id], (error, result) => {
+            if (!error) {
+               const newResult = {
+                  category_id: id,
+                  ...setData
+               }
+               resolve(newResult)
+            } else {
+               reject(new Error(error))
+            }
+            console.log(error)
+         })
+      })
+   },
+   deleteOrder: (id) => {
+      return new Promise((resolve, reject) => {
+         connection.query("DELETE FROM order WHERE order_id = ?", id,
             (error, result) => {
                if (!error) {
                   const newResult = {
@@ -44,10 +59,9 @@ module.exports = {
                   resolve(newResult)
                } else {
                   reject(new Error(error))
-               }
+               } z
             }
          )
       })
-   }
-
+   },
 }

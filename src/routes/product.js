@@ -1,9 +1,11 @@
 const router = require("express").Router()
-const { getByproduct_Name, getAllProduct, getProductById, postProduct, patchProduct, deleteProduct } = require('../controller/product')
+const { getProduct, getByproduct_Name, getProductById, postProduct, patchProduct, deleteProduct } = require('../controller/product')
 // const product = require('../controller/product')
 
 // [GET]
-router.get('/', getAllProduct);
+//router.get('/', getAllProduct);
+// [GET]
+router.get('/', getProduct);
 // [BY ID]
 router.get('/:id', getProductById);
 // [ASC]

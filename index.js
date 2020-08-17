@@ -1,18 +1,20 @@
 // [1]
+const expressSearch = require('express-search');
 require('dotenv').config()
 const express = require('express');
 const bodyParser = require('body-parser') // untuk melihat dan menangkap data di postman
 const morgan = require('morgan')
 //----------------------
 const cors = require('cors')
-
+//const linter = require('linter');
 // ===================================
 const routerNavigation = require('./src');
 const { request, response } = require('express');
 // ===================================
 
 const app = express();
-
+//app.use('/api/search/', expressSearch.setup(mySearch));
+//app.use(linter())
 app.use(cors())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))

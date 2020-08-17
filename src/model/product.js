@@ -13,7 +13,10 @@ module.exports = {
   // [Pagination Limit-offset-Join]
   getProduct: (limit, offset, search, sort) => {
     return new Promise((resolve, reject) => {
-      connection.query("SELECT products.product_id, products.product_name, products.product_price, category.category_name, products.product_created_at, products.product_updated_at, products.product_status FROM products INNER JOIN category ON products.category_id = category.category_id WHERE products.product_name LIKE ? ORDER BY ${sort} LIMIT ? OFFSET ? ", [`%${search}%`, limit, offset], (error, result) => {
+      connection.query(`SELECT products.product_id, products.product_name, products.product_price, 
+      category.category_name, products.product_created_at, products.product_updated_at, products.product_status FROM products 
+      INNER JOIN category ON products.category_id = category.category_id WHERE products.product_name LIKE ? 
+      ORDER BY ${sort} LIMIT ? OFFSET ?`, [`%${search}%`, limit, offset], (error, result) => {
         !error ? resolve(result) : reject(new Error(error))
       })
     })

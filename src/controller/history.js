@@ -28,7 +28,7 @@ module.exports = {
       console.log(request.body)
       try {
          const setData = {
-            product_created_at: new Date(),
+            history_created_at: new Date(),
          }
          const result = await postHistory(setData)
          // console.log(result)
