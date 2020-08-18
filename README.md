@@ -43,13 +43,13 @@ DB_PASS=iyus123
 **2. POST**
 
 - `/product` (Post product)
-  - `{ "product_name": "Kipas", "category_id": 2, "product_harga": 50000 , "product_status" : 1 | 0}`
+  - `{ "product_name": "Nasi goreng", "category_id": 2, "product_harga": 50000 , "product_status" : 1 | 0}`
 
 **3. PATCH**
 
 - `/product/:id` (Update product by id)
 
-  - `{"product_name" : "Mouse", "category_id" : 1, "product_harga" : 100000, "product_status" : 1 | 0}`
+  - `{"product_name" : "Nasi  Remes", "category_id" : 1, "product_harga" : 100000, "product_status" : 1 | 0}`
 
 **4. DELETE**
 
