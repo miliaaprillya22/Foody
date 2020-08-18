@@ -10,7 +10,9 @@ module.exports = {
    },
    getByOrder_id: (id) => {
       return new Promise((resolve, reject) => {
-         connection.query("SELECT * FROM order WHERE order_id = ?", id, (error, result) => {
+         connection.query(`SELECT * FROM order
+         INNER JOIN category ON products.category_id = category.category_id WHERE products.product_name LIKE ? 
+         ORDER BY ${sort} LIMIT ? OFFSET ?`, id, (error, result) => {
             !error ? resolve(result) : reject(new Error(error))
          })
       })
